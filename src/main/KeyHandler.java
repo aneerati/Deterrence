@@ -49,7 +49,7 @@ public class KeyHandler implements KeyListener {
             downPressed = false;
         }
         if (code == KeyEvent.VK_D) {
-            rightPressed = false;
+            rightPressed = true;
         }
     }
 
