@@ -17,7 +17,7 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
         setDefaultValues();
-        getPlayerImage();
+        loadPlayerImages();
     }
 
     public void setDefaultValues() {
@@ -27,7 +27,7 @@ public class Player extends Entity {
         direction = "down";
     }
 
-    public void getPlayerImage() {
+    public void loadPlayerImages() {
         // loads all sprites once
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
