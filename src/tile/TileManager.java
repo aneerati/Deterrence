@@ -21,6 +21,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 
         loadTileImages();
+        loadMap();
     }
 
     public void loadTileImages() {
@@ -75,7 +76,10 @@ public class TileManager {
         int y = 0;
 
         while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-            g2.drawImage(tiles[0].image, x, y, gp.tileSize, gp.tileSize, null);
+
+            int tileNum = mapTileNum[col][row];
+
+            g2.drawImage(tiles[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
             col++;
             x = x + gp.tileSize;
 
