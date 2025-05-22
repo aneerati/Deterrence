@@ -78,8 +78,10 @@ public class Player extends Entity {
                 break;
             case "left":
                 image = left1;
+                break;
             case "right":
                 image = right1;
+                break;
             default:
                 break;
         }
