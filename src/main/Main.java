@@ -12,6 +12,11 @@ public class Main {
         // prob make this true at some point
         window.setResizable(false);
         window.setTitle("Deterrence");
+
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+        window.pack();
+
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
