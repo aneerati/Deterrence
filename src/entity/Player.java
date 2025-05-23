@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -13,21 +14,32 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        // player position on screen
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+
+        // player collision box
+        solidArea = new Rectangle(8, 16, gp.tileSize - 16, gp.tileSize - 16);
+
         setDefaultValues();
-        getPlayerImage();
+        loadPlayerImages();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
     }
 
-    public void getPlayerImage() {
+    public void loadPlayerImages() {
         // loads all sprites once
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
@@ -48,22 +60,41 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyH.upPressed == true) {
-            direction = "up";
-            y = y - speed;
-        } else if (keyH.downPressed == true) {
-            direction = "down";
-            y = y + speed;
-        } else if (keyH.leftPressed == true) {
-            direction = "left";
-            x = x - speed;
-        } else if (keyH.rightPressed == true) {
-            direction = "right";
-            x = x + speed;
-        }
-
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
                 || keyH.rightPressed == true) {
+            if (keyH.upPressed == true) {
+                direction = "up";
+            } else if (keyH.downPressed == true) {
+                direction = "down";
+            } else if (keyH.leftPressed == true) {
+                direction = "left";
+            } else if (keyH.rightPressed == true) {
+                direction = "right";
+            }
+
+            // COLLISION CHECKING
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+
+            if (collisionOn == false) {
+                switch (direction) {
+                    case "up":
+                        worldY = worldY - speed;
+                        break;
+                    case "down":
+                        worldY = worldY + speed;
+                        break;
+                    case "left":
+                        worldX = worldX - speed;
+                        break;
+                    case "right":
+                        worldX = worldX + speed;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNum == 1) {
@@ -115,6 +146,6 @@ public class Player extends Entity {
             default:
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
