@@ -35,6 +35,13 @@ public class CollisionChecker {
                 }
                 break;
             case "down":
+                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+
+                if (gp.tileM.tiles[tileNum1].collision == true || gp.tileM.tiles[tileNum2].collision == true) {
+                    entity.collisionOn = true;
+                }
                 break;
             case "left":
                 break;
