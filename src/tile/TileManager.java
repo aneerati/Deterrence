@@ -82,8 +82,6 @@ public class TileManager {
 
         int worldCol = 0;
         int worldRow = 0;
-        // int x = 0;
-        // int y = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 
@@ -96,15 +94,18 @@ public class TileManager {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            g2.drawImage(tiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            if (worldX > gp.player.worldX - gp.player.screenX && worldX < gp.player.worldX + gp.player.screenX
+                    && worldY > gp.player.worldY - gp.player.screenY && worldY < gp.player.worldY
+                            + gp.player.screenY) {
+
+                g2.drawImage(tiles[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            }
             worldCol++;
-            // x = x + gp.tileSize;
 
             if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 // x = 0;
                 worldRow++;
-                // y = y + gp.tileSize;
             }
         }
     }
