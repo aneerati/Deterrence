@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -35,9 +36,11 @@ public class GamePanel extends JPanel implements Runnable {
     // Instantiate all Classes
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
+    TileManager tileM = new TileManager(this);
     public Player player = new Player(this, keyH);
     public CollisionChecker cChecker = new CollisionChecker(this);
-    TileManager tileM = new TileManager(this);
+    // Allows displaying of 10 objects at the same time
+    public SuperObject obj[] = new SuperObject[10];
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
