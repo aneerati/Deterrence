@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Key extends SuperObject {
+public class OBJ_Key extends SuperObject {
 
-    public Key() {
+    public OBJ_Key() {
         name = "key";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
