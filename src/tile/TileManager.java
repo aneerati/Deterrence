@@ -24,6 +24,7 @@ public class TileManager {
         loadMap("/maps/world01.txt");
     }
 
+    // load all tiles on startup
     public void loadTileImages() {
         try {
             tiles[0] = new Tile();
@@ -52,6 +53,7 @@ public class TileManager {
         }
     }
 
+    // Math to make world rendering work
     public void loadMap(String mapFile) {
         try {
             InputStream is = getClass().getResourceAsStream(mapFile);
@@ -81,6 +83,7 @@ public class TileManager {
         }
     }
 
+    // Draw method for world building
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;

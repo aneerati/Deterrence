@@ -79,10 +79,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    // Calls update methods of other classes
     public void update() {
         player.update();
     }
 
+    // Calls draw methods of other classes
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;

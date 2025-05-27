@@ -39,8 +39,8 @@ public class Player extends Entity {
         direction = "down";
     }
 
+    // Load player sprites on startup
     public void loadPlayerImages() {
-        // loads all sprites once
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_2.png"));
@@ -59,6 +59,7 @@ public class Player extends Entity {
         }
     }
 
+    // update player's position and sprite
     public void update() {
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true
                 || keyH.rightPressed == true) {
@@ -107,6 +108,7 @@ public class Player extends Entity {
         }
     }
 
+    // draw updates player sprite
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
