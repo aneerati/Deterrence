@@ -9,6 +9,7 @@ public class AssetSetter {
         this.gp = gp;
     }
 
+    // Only sets object and its position on map
     public void setObject() {
         gp.obj[0] = new OBJ_Key();
         gp.obj[0].worldX = 23 * gp.tileSize;
