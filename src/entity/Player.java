@@ -85,6 +85,7 @@ public class Player extends Entity {
 
             // OBJECT COLLISION
             int objIndex = gp.cChecker.checkObject(this, true);
+            pickupObject(objIndex);
 
             if (collisionOn == false) {
                 switch (direction) {
@@ -114,6 +115,13 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        }
+    }
+
+    public void pickupObject(int i) {
+
+        if (i != 999) {
+            gp.obj[i] = null;
         }
     }
 
