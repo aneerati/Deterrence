@@ -26,19 +26,18 @@ public class Sound {
             clip = AudioSystem.getClip();
             clip.open(ais);
         } catch (Exception e) {
-
         }
     }
 
     public void play() {
-
+        clip.start();
     }
 
     public void loop() {
-
+        clip.loop(clip.LOOP_CONTINUOUSLY);
     }
 
     public void stop() {
-
+        clip.stop();
     }
 }
