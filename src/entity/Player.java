@@ -79,9 +79,12 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-            // COLLISION CHECKING
+            // TILE COLLISION
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
+            // OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
 
             if (collisionOn == false) {
                 switch (direction) {
