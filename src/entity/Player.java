@@ -16,6 +16,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -26,7 +27,13 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         // player collision box
-        solidArea = new Rectangle(8, 16, gp.tileSize - 16, gp.tileSize - 16);
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = gp.tileSize - 16;
+        solidArea.height = gp.tileSize - 16;
 
         setDefaultValues();
         loadPlayerImages();
@@ -73,9 +80,13 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-            // COLLISION CHECKING
+            // TILE COLLISION
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
+            // OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickupObject(objIndex);
 
             if (collisionOn == false) {
                 switch (direction) {
@@ -104,6 +115,35 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+
+    public void pickupObject(int i) {
+
+        if (i != 999) {
+            String objName = gp.obj[i].name;
+
+            switch (objName) {
+                case "key":
+                    gp.playSoundEffect(1);
+                    hasKey++;
+                    gp.obj[i] = null;
+                    break;
+                case "door":
+                    gp.playSoundEffect(3);
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                    }
+                    break;
+                case "boots":
+                    gp.playSoundEffect(2);
+                    speed += 2;
+                    gp.obj[i] = null;
+                    break;
+                default:
+                    break;
             }
         }
     }
