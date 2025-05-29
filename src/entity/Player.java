@@ -117,6 +117,8 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        } else {
+            spriteNum = 1;
         }
     }
 
