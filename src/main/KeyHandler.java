@@ -40,10 +40,10 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_ESCAPE) {
-            if (gp.gameState == gp.PLAY_STATE) {
-                gp.gameState = gp.PAUSE_STATE;
-            } else if (gp.gameState == gp.PAUSE_STATE) {
-                gp.gameState = gp.PLAY_STATE;
+            if (gp.gameState == GamePanel.PLAY_STATE) {
+                gp.gameState = GamePanel.PAUSE_STATE;
+            } else if (gp.gameState == GamePanel.PAUSE_STATE) {
+                gp.gameState = GamePanel.PLAY_STATE;
             }
         }
 

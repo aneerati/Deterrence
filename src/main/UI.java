@@ -28,9 +28,6 @@ public class UI {
     int messageTimer = 0;
     int messageDuration = 0;
 
-    // GAME STATE
-    public boolean gameFinished = false;
-
     public UI(GamePanel gp) {
         this.gp = gp;
         this.arial_40 = new Font("Arial", Font.PLAIN, 40);
@@ -44,7 +41,34 @@ public class UI {
         messageDuration = duration;
     }
 
+    public void drawPlayState() {
+        g2.setFont(arial_40);
+        g2.setColor(Color.WHITE);
+        g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        g2.drawString(": " + gp.player.hasKey, 74, 65);
+
+        // PLAYTIME
+        playTime += (double) 1 / 60;
+        g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize * 11, 65);
+        ;
+
+        // NOTIFICATIONS
+        if (messageOn == true) {
+            g2.setFont(g2.getFont().deriveFont(30F));
+            g2.drawString(message, gp.tileSize / 2, gp.tileSize * 5);
+
+            messageTimer++;
+
+            if (messageTimer > messageDuration) {
+                messageTimer = 0;
+                messageOn = false;
+            }
+        }
+    }
+
     public void drawPauseScreen() {
+        gp.keyH.developerMode = false;
+
         String text = "PAUSED";
         int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - textLength / 2;
@@ -54,6 +78,8 @@ public class UI {
     }
 
     public void drawWinState() {
+        gp.keyH.developerMode = false;
+
         String text;
         int textLength;
         int x;
@@ -93,7 +119,7 @@ public class UI {
 
         switch (gp.gameState) {
             case GamePanel.PLAY_STATE:
-
+                drawPlayState();
                 break;
             case GamePanel.PAUSE_STATE:
                 drawPauseScreen();
@@ -105,67 +131,5 @@ public class UI {
                 break;
         }
 
-        if (gameFinished == true) {
-
-            g2.setFont(arial_40);
-            g2.setColor(Color.WHITE);
-
-            String text;
-            int textLength;
-            int x;
-            int y;
-
-            // Treasure found message
-            text = "Treasure Found!";
-            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength / 2;
-            y = gp.screenHeight / 2 - (gp.tileSize * 3);
-            g2.drawString(text, x, y);
-
-            text = "Your Time is: " + dFormat.format(playTime);
-            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength / 2;
-            y = gp.screenHeight / 2 + (gp.tileSize * 4);
-            g2.drawString(text, x, y);
-
-            g2.setFont(arial_80B);
-            g2.setColor(Color.YELLOW);
-
-            // Win message
-            text = "YOU WIN!!!";
-            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-
-            x = gp.screenWidth / 2 - textLength / 2;
-            y = gp.screenHeight / 2 + (gp.tileSize * 2);
-            g2.drawString(text, x, y);
-
-            gp.gameThread = null;
-
-        } else {
-            // STATIC UI
-            g2.setFont(arial_40);
-            g2.setColor(Color.WHITE);
-            g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-            g2.drawString(": " + gp.player.hasKey, 74, 65);
-
-            // PLAYTIME
-            playTime += (double) 1 / 60;
-            g2.drawString("Time: " + dFormat.format(playTime), gp.tileSize * 11, 65);
-            ;
-
-            // NOTIFICATIONS
-            if (messageOn == true) {
-                g2.setFont(g2.getFont().deriveFont(30F));
-                g2.drawString(message, gp.tileSize / 2, gp.tileSize * 5);
-
-                messageTimer++;
-
-                // waits 120 frames
-                if (messageTimer > messageDuration) {
-                    messageTimer = 0;
-                    messageOn = false;
-                }
-            }
-        }
     }
 }
