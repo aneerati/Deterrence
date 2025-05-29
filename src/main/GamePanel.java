@@ -129,8 +129,10 @@ public class GamePanel extends JPanel implements Runnable {
         ui.draw(g2);
 
         if (keyH.developerMode == true) {
+            long passed = System.nanoTime() - drawStart;
             g2.setColor(Color.WHITE);
-            g2.drawString("Render Time: " + (System.nanoTime() - drawStart), 10, 400);
+            g2.drawString("Render Time: " + passed, 10, 400);
+            System.out.println(passed);
         }
 
         g2.dispose();

@@ -1,6 +1,7 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +30,10 @@ public class TileManager {
         try {
             tiles[0] = new Tile();
             tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+            BufferedImage scaledImage = new BufferedImage(gp.tileSize, gp.tileSize, tiles[0].image.getType());
+            Graphics2D g2 = scaledImage.createGraphics();
+            g2.drawImage(tiles[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
+            tiles[0].image = scaledImage;
 
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
