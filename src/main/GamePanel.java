@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     // SYSTEM CLASSES
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     TileManager tileM = new TileManager(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Sound music = new Sound();
@@ -54,8 +54,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     // GAME STATE
     public int gameState;
-    public final int playState = 1;
-    public final int pauseState = 2;
+    public static final int PLAY_STATE = 1;
+    public static final int PAUSE_STATE = 2;
+    public static final int WIN_STATE = 3;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -69,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         playMusic(0);
         // stopMusic();
-        gameState = playState;
+        gameState = PLAY_STATE;
     }
 
     public void startGameThread() {
@@ -106,7 +107,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Calls update methods of other classes
     public void update() {
-        player.update();
+        if (gameState == PLAY_STATE) {
+            player.update();
+        }
+
+        if (gameState == PAUSE_STATE) {
+
+        }
+
     }
 
     // Calls draw methods of other classes

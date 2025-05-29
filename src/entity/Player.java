@@ -167,7 +167,8 @@ public class Player extends Entity {
                     gp.ui.showMessage("Speed Increased", 120);
                     break;
                 case "chest":
-                    gp.ui.gameFinished = true;
+                    // gp.ui.gameFinished = true;
+                    gp.gameState = GamePanel.WIN_STATE;
                     gp.stopMusic();
                     gp.playSoundEffect(4);
                     break;
