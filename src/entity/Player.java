@@ -129,6 +129,7 @@ public class Player extends Entity {
                     gp.playSoundEffect(1);
                     hasKey++;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Key Picked Up", 120);
                     break;
                 case "door":
                     gp.playSoundEffect(3);
