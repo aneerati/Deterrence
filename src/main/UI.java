@@ -35,8 +35,6 @@ public class UI {
         this.arial_40 = new Font("Arial", Font.PLAIN, 40);
         this.arial_80B = new Font("Arial", Font.BOLD, 80);
         keyImage = new OBJ_Key().image;
-        // OBJ_Key key = new OBJ_Key();
-        // keyImage = key.image;
     }
 
     public void showMessage(String text, int duration) {
