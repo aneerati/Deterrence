@@ -34,7 +34,7 @@ public class UI {
         this.gp = gp;
         this.arial_40 = new Font("Arial", Font.PLAIN, 40);
         this.arial_80B = new Font("Arial", Font.BOLD, 80);
-        keyImage = new OBJ_Key().image;
+        keyImage = new OBJ_Key(gp).image;
     }
 
     public void showMessage(String text, int duration) {
