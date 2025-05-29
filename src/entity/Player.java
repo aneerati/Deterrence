@@ -118,7 +118,12 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         } else {
-            spriteNum = 1;
+            standCounter++;
+
+            if (standCounter == 20) {
+                spriteNum = 1;
+                standCounter = 0;
+            }
         }
     }
 
