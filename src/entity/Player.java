@@ -132,16 +132,25 @@ public class Player extends Entity {
                     gp.ui.showMessage("Key Picked Up", 120);
                     break;
                 case "door":
-                    gp.playSoundEffect(3);
                     if (hasKey > 0) {
+                        gp.playSoundEffect(3);
                         gp.obj[i] = null;
                         hasKey--;
+                    }
+                    if (hasKey <= 0) {
+                        gp.ui.showMessage("Find a Key", 180);
                     }
                     break;
                 case "boots":
                     gp.playSoundEffect(2);
                     speed += 2;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Speed Increased", 120);
+                    break;
+                case "chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSoundEffect(4);
                     break;
                 default:
                     break;
