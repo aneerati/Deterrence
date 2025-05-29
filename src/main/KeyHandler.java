@@ -9,7 +9,7 @@ public class KeyHandler implements KeyListener {
     public boolean downPressed;
     public boolean leftPressed;
     public boolean rightPressed;
-    public boolean developerMode;
+    public boolean developerMode = false;
 
     // VS code tweaked without this
     @Override
@@ -33,6 +33,8 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
+
+        // DEVELOPER MODE
         if (code == KeyEvent.VK_P) {
             developerMode = !developerMode;
         }

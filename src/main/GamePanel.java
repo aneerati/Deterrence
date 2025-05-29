@@ -30,6 +30,9 @@ public class GamePanel extends JPanel implements Runnable {
     // public final int worldWidth = tileSize * maxWorldCol;
     // public final int worldHeight = tileSize * maxScreenRow;
 
+    // DEVELOPER MODE
+    public long drawStart = 0;
+
     // Default FPS
     int FPS = 60;
 
@@ -104,6 +107,11 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        // DEVELOPER MODE
+        if (keyH.developerMode == true) {
+            drawStart = System.nanoTime();
+        }
+
         // TILE DRAWING
         tileM.draw(g2);
 
@@ -119,6 +127,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         // UI DRAWING
         ui.draw(g2);
+
+        if (keyH.developerMode == true) {
+            g2.setColor(Color.WHITE);
+            g2.drawString("Render Time: " + (System.nanoTime() - drawStart), 10, 400);
+        }
 
         g2.dispose();
     }
