@@ -84,7 +84,7 @@ public class Player extends Entity {
             pickupObject(objIndex);
 
             // CHECK COLLISION WITH NPC
-            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            gp.cChecker.checkEntity(this, gp.npc);
 
             if (collisionOn == false) {
                 switch (direction) {

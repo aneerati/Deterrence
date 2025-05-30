@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // GAME STATE
     public int gameState;
+    public static final int TITLE_STATE = 0;
     public static final int PLAY_STATE = 1;
     public static final int PAUSE_STATE = 2;
     public static final int WIN_STATE = 3;
@@ -69,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         playMusic(0);
         // stopMusic();
-        gameState = PLAY_STATE;
+        gameState = TITLE_STATE;
     }
 
     public void startGameThread() {
@@ -126,41 +127,45 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        // DEVELOPER MODE
-        if (keyH.developerMode == true) {
-            drawStart = System.nanoTime();
-        }
+        if (gameState == TITLE_STATE) {
 
-        // TILE DRAWING
-        tileM.draw(g2);
-
-        // OBJECT DRAWING
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
+        } else {
+            // DEVELOPER MODE
+            if (keyH.developerMode == true) {
+                drawStart = System.nanoTime();
             }
-        }
 
-        // NPC
-        for (int i = 0; i < npc.length; i++) {
-            if (npc[i] != null) {
-                npc[i].draw(g2);
+            // TILE DRAWING
+            tileM.draw(g2);
+
+            // OBJECT DRAWING
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    obj[i].draw(g2, this);
+                }
             }
+
+            // NPC
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].draw(g2);
+                }
+            }
+
+            // PLAYER DRAWING
+            player.draw(g2);
+
+            // UI DRAWING
+            ui.draw(g2);
+
+            if (keyH.developerMode == true) {
+                long passed = System.nanoTime() - drawStart;
+                g2.setColor(Color.WHITE);
+                g2.drawString("Render Time: " + passed, 10, 400);
+            }
+
+            g2.dispose();
         }
-
-        // PLAYER DRAWING
-        player.draw(g2);
-
-        // UI DRAWING
-        ui.draw(g2);
-
-        if (keyH.developerMode == true) {
-            long passed = System.nanoTime() - drawStart;
-            g2.setColor(Color.WHITE);
-            g2.drawString("Render Time: " + passed, 10, 400);
-        }
-
-        g2.dispose();
     }
 
     public void playMusic(int i) {
