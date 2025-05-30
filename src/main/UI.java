@@ -13,6 +13,9 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
 
+    // TITLE SCREEN
+    public int commandNum = 0;
+
     // STATIC UI
     Font arial_40;
     Font arial_80B;
@@ -65,6 +68,37 @@ public class UI {
         x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
         y += gp.tileSize * 2;
         g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+        // MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "NEW GAME";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 4;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "LOAD GAME";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "QUIT";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
     }
 
     public void drawPlayState() {
