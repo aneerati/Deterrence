@@ -4,16 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
 public class Player extends Entity {
 
-    GamePanel gp;
+    // GamePanel gp;
     KeyHandler keyH;
 
     public final int screenX;
@@ -21,7 +18,7 @@ public class Player extends Entity {
     public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         // player position on screen
@@ -51,31 +48,17 @@ public class Player extends Entity {
     // Load player sprites on startup
     public void loadPlayerImages() {
 
-        up1 = setupPlayer("player_up_1");
-        up2 = setupPlayer("player_up_2");
+        up1 = setupEntity("/player/player_up_1");
+        up2 = setupEntity("/player/player_up_2");
 
-        down1 = setupPlayer("player_down_1");
-        down2 = setupPlayer("player_down_2");
+        down1 = setupEntity("/player/player_down_1");
+        down2 = setupEntity("/player/player_down_2");
 
-        left1 = setupPlayer("player_left_1");
-        left2 = setupPlayer("player_left_2");
+        left1 = setupEntity("/player/player_left_1");
+        left2 = setupEntity("/player/player_left_2");
 
-        right1 = setupPlayer("player_right_1");
-        right2 = setupPlayer("player_right_2");
-    }
-
-    public BufferedImage setupPlayer(String imageName) {
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return image;
+        right1 = setupEntity("/player/player_right_1");
+        right2 = setupEntity("/player/player_right_2");
     }
 
     // update player's position and sprite
