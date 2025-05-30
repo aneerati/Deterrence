@@ -40,6 +40,22 @@ public class KeyHandler implements KeyListener {
                     gp.ui.commandNum = 0;
                 }
             }
+            if (code == KeyEvent.VK_ENTER) {
+                switch (gp.ui.commandNum) {
+                    case 0:
+                        gp.gameState = GamePanel.PLAY_STATE;
+                        gp.playMusic(0);
+                        break;
+                    case 1:
+                        // TODO
+                        break;
+                    case 2:
+                        System.exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         // PLAY STATE
