@@ -75,13 +75,16 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-            // TILE COLLISION
+            // CHECK COLLISION WITH TILE
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
-            // OBJECT COLLISION
+            // CHECK COLLISION WITH OBJECT
             int objIndex = gp.cChecker.checkObject(this, true);
             pickupObject(objIndex);
+
+            // CHECK COLLISION WITH NPC
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 
             if (collisionOn == false) {
                 switch (direction) {

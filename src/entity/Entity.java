@@ -40,6 +40,8 @@ public class Entity {
 
     public boolean collisionOn = false;
 
+    public int actionLockCounter = 0;
+
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
@@ -67,6 +69,8 @@ public class Entity {
 
         collisionOn = false;
         gp.cChecker.checkTile(this);
+        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkPlayer(this);
 
         if (collisionOn == false) {
             switch (direction) {
