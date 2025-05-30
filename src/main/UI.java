@@ -13,6 +13,9 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
 
+    // TITLE SCREEN
+    public int commandNum = 0;
+
     // STATIC UI
     Font arial_40;
     Font arial_80B;
@@ -39,6 +42,63 @@ public class UI {
         message = text;
         messageOn = true;
         messageDuration = duration;
+    }
+
+    public void drawTitleState() {
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // GAME TITLE
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+        String text = "Deterrence";
+        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth / 2 - textLength / 2;
+        int y = gp.tileSize * 3;
+
+        // TITLE SHADOW
+        g2.setColor(Color.BLACK);
+        g2.drawString(text, x + 5, y + 5);
+
+        // MAIN COLOR
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+
+        // CHARACTER IMAGE
+        x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
+        y += gp.tileSize * 2;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+        // MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "NEW GAME";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 4;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "LOAD GAME";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "QUIT";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
     }
 
     public void drawPlayState() {
@@ -118,6 +178,9 @@ public class UI {
         g2.setColor(Color.WHITE);
 
         switch (gp.gameState) {
+            case GamePanel.TITLE_STATE:
+                drawTitleState();
+                break;
             case GamePanel.PLAY_STATE:
                 drawPlayState();
                 break;

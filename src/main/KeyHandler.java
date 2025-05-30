@@ -26,30 +26,66 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
-            upPressed = true;
-        }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = true;
-        }
-        if (code == KeyEvent.VK_S) {
-            downPressed = true;
-        }
-        if (code == KeyEvent.VK_D) {
-            rightPressed = true;
-        }
-
-        if (code == KeyEvent.VK_ESCAPE) {
-            if (gp.gameState == GamePanel.PLAY_STATE) {
-                gp.gameState = GamePanel.PAUSE_STATE;
-            } else if (gp.gameState == GamePanel.PAUSE_STATE) {
-                gp.gameState = GamePanel.PLAY_STATE;
+        // TITLE STATE
+        if (gp.gameState == GamePanel.TITLE_STATE) {
+            if ((code == KeyEvent.VK_W) || (code == KeyEvent.VK_UP)) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 2;
+                }
+            }
+            if ((code == KeyEvent.VK_S) || (code == KeyEvent.VK_DOWN)) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 2) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                switch (gp.ui.commandNum) {
+                    case 0:
+                        gp.gameState = GamePanel.PLAY_STATE;
+                        gp.playMusic(0);
+                        break;
+                    case 1:
+                        // TODO
+                        break;
+                    case 2:
+                        System.exit(0);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
-        // DEVELOPER MODE
-        if (code == KeyEvent.VK_P) {
-            developerMode = !developerMode;
+        // PLAY STATE
+        if (gp.gameState == GamePanel.PLAY_STATE) {
+            if ((code == KeyEvent.VK_W) || (code == KeyEvent.VK_UP)) {
+                upPressed = true;
+            }
+            if ((code == KeyEvent.VK_A) || (code == KeyEvent.VK_LEFT)) {
+                leftPressed = true;
+            }
+            if ((code == KeyEvent.VK_S) || (code == KeyEvent.VK_DOWN)) {
+                downPressed = true;
+            }
+            if ((code == KeyEvent.VK_D) || (code == KeyEvent.VK_RIGHT)) {
+                rightPressed = true;
+            }
+
+            // PAUSE STATE
+            if (code == KeyEvent.VK_ESCAPE) {
+                if (gp.gameState == GamePanel.PLAY_STATE) {
+                    gp.gameState = GamePanel.PAUSE_STATE;
+                } else if (gp.gameState == GamePanel.PAUSE_STATE) {
+                    gp.gameState = GamePanel.PLAY_STATE;
+                }
+            }
+
+            // DEVELOPER MODE
+            if (code == KeyEvent.VK_P) {
+                developerMode = !developerMode;
+            }
         }
     }
 
@@ -58,16 +94,16 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) {
+        if ((code == KeyEvent.VK_W) || (code == KeyEvent.VK_UP)) {
             upPressed = false;
         }
-        if (code == KeyEvent.VK_A) {
+        if ((code == KeyEvent.VK_A) || (code == KeyEvent.VK_LEFT)) {
             leftPressed = false;
         }
-        if (code == KeyEvent.VK_S) {
+        if ((code == KeyEvent.VK_S) || (code == KeyEvent.VK_DOWN)) {
             downPressed = false;
         }
-        if (code == KeyEvent.VK_D) {
+        if ((code == KeyEvent.VK_D) || (code == KeyEvent.VK_RIGHT)) {
             rightPressed = false;
         }
     }
