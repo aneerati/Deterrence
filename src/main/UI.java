@@ -41,6 +41,27 @@ public class UI {
         messageDuration = duration;
     }
 
+    public void drawTitleState() {
+
+        g2.setColor(Color.DARK_GRAY);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // GAME TITLE
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+        String text = "Deterrence";
+        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth / 2 - textLength / 2;
+        int y = gp.tileSize * 3;
+
+        // TITLE SHADOW
+        g2.setColor(Color.BLACK);
+        g2.drawString(text, x + 5, y + 5);
+
+        // MAIN COLOR
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+    }
+
     public void drawPlayState() {
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
@@ -118,6 +139,9 @@ public class UI {
         g2.setColor(Color.WHITE);
 
         switch (gp.gameState) {
+            case GamePanel.TITLE_STATE:
+                drawTitleState();
+                break;
             case GamePanel.PLAY_STATE:
                 drawPlayState();
                 break;
