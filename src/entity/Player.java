@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -8,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 public class Player extends Entity {
 
@@ -48,22 +50,32 @@ public class Player extends Entity {
 
     // Load player sprites on startup
     public void loadPlayerImages() {
+
+        up1 = setupPlayer("player_up_1");
+        up2 = setupPlayer("player_up_2");
+
+        down1 = setupPlayer("player_down_1");
+        down2 = setupPlayer("player_down_2");
+
+        left1 = setupPlayer("player_left_1");
+        left2 = setupPlayer("player_left_2");
+
+        right1 = setupPlayer("player_right_1");
+        right2 = setupPlayer("player_right_2");
+    }
+
+    public BufferedImage setupPlayer(String imageName) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_2.png"));
-
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/player_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/player_down_2.png"));
-
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_2.png"));
-
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_2.png"));
-
+            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return image;
     }
 
     // update player's position and sprite
@@ -116,6 +128,13 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        } else {
+            standCounter++;
+
+            if (standCounter == 20) {
+                spriteNum = 1;
+                standCounter = 0;
+            }
         }
     }
 
@@ -148,7 +167,8 @@ public class Player extends Entity {
                     gp.ui.showMessage("Speed Increased", 120);
                     break;
                 case "chest":
-                    gp.ui.gameFinished = true;
+                    // gp.ui.gameFinished = true;
+                    gp.gameState = GamePanel.WIN_STATE;
                     gp.stopMusic();
                     gp.playSoundEffect(4);
                     break;
@@ -198,6 +218,12 @@ public class Player extends Entity {
             default:
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
+
+        // GAME CHANGES FOR DEVELOPER MODE
+        if (keyH.developerMode == true) {
+            g2.setColor(Color.RED);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+        }
     }
 }

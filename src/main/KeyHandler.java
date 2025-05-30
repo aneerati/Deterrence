@@ -5,10 +5,16 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    GamePanel gp;
     public boolean upPressed;
     public boolean downPressed;
     public boolean leftPressed;
     public boolean rightPressed;
+    public boolean developerMode = false;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
 
     // VS code tweaked without this
     @Override
@@ -31,6 +37,19 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
+        }
+
+        if (code == KeyEvent.VK_ESCAPE) {
+            if (gp.gameState == GamePanel.PLAY_STATE) {
+                gp.gameState = GamePanel.PAUSE_STATE;
+            } else if (gp.gameState == GamePanel.PAUSE_STATE) {
+                gp.gameState = GamePanel.PLAY_STATE;
+            }
+        }
+
+        // DEVELOPER MODE
+        if (code == KeyEvent.VK_P) {
+            developerMode = !developerMode;
         }
     }
 

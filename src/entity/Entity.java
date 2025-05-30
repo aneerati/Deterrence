@@ -22,6 +22,7 @@ public class Entity {
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public int standCounter = 0;
 
     public Rectangle solidArea;
 

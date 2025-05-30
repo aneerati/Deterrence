@@ -30,11 +30,14 @@ public class GamePanel extends JPanel implements Runnable {
     // public final int worldWidth = tileSize * maxWorldCol;
     // public final int worldHeight = tileSize * maxScreenRow;
 
+    // DEVELOPER MODE
+    public long drawStart = 0;
+
     // Default FPS
     int FPS = 60;
 
     // SYSTEM CLASSES
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     TileManager tileM = new TileManager(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Sound music = new Sound();
@@ -49,6 +52,12 @@ public class GamePanel extends JPanel implements Runnable {
     // Allows displaying of 10 objects at the same time
     public SuperObject obj[] = new SuperObject[10];
 
+    // GAME STATE
+    public int gameState;
+    public static final int PLAY_STATE = 1;
+    public static final int PAUSE_STATE = 2;
+    public static final int WIN_STATE = 3;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -60,6 +69,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         playMusic(0);
+        // stopMusic();
+        gameState = PLAY_STATE;
     }
 
     public void startGameThread() {
@@ -96,13 +107,25 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Calls update methods of other classes
     public void update() {
-        player.update();
+        if (gameState == PLAY_STATE) {
+            player.update();
+        }
+
+        if (gameState == PAUSE_STATE) {
+
+        }
+
     }
 
     // Calls draw methods of other classes
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        // DEVELOPER MODE
+        if (keyH.developerMode == true) {
+            drawStart = System.nanoTime();
+        }
 
         // TILE DRAWING
         tileM.draw(g2);
@@ -119,6 +142,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         // UI DRAWING
         ui.draw(g2);
+
+        if (keyH.developerMode == true) {
+            long passed = System.nanoTime() - drawStart;
+            g2.setColor(Color.WHITE);
+            g2.drawString("Render Time: " + passed, 10, 400);
+        }
 
         g2.dispose();
     }
