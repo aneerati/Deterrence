@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -24,6 +25,9 @@ public class UI {
     // PLAYTIME
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("#0.00");
+
+    // DIALOGUE
+    public String currentDialogue = "";
 
     // NOTIFICATIONS
     public boolean messageOn = false;
@@ -177,15 +181,25 @@ public class UI {
         int x = gp.tileSize * 2;
         int y = gp.tileSize / 2;
         int width = gp.screenWidth - (gp.tileSize * 4);
-        int height = gp.tileSize * 5;
-
+        int height = gp.tileSize * 4;
         drawSubWindow(x, y, width, height);
+
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.drawString(currentDialogue, x, y);
+
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {
-        Color c = new Color(0, 0, 0);
+        Color c = new Color(0, 0, 0, 210);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        c = new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+
     }
 
     public void draw(Graphics2D g2) {
