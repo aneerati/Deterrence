@@ -84,7 +84,8 @@ public class Player extends Entity {
             pickupObject(objIndex);
 
             // CHECK COLLISION WITH NPC
-            gp.cChecker.checkEntity(this, gp.npc);
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
             if (collisionOn == false) {
                 switch (direction) {
@@ -160,6 +161,12 @@ public class Player extends Entity {
                 default:
                     break;
             }
+        }
+    }
+
+    public void interactNPC(int i) {
+        if (i != 999) {
+            gp.gameState = GamePanel.DIALOGUE_STATE;
         }
     }
 
