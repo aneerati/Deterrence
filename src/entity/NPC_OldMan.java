@@ -34,6 +34,9 @@ public class NPC_OldMan extends Entity {
 
     public void setDialogue() {
         dialogues[0] = "Hello Sir";
+        dialogues[1] = "Some Important news overnight";
+        dialogues[2] = "Russia hates us";
+        dialogues[3] = "Good Day Sir";
     }
 
     public void setAction() {
@@ -62,7 +65,8 @@ public class NPC_OldMan extends Entity {
     }
 
     public void speak() {
-        gp.ui.currentDialogue = dialogues[0];
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
     }
 
 }
