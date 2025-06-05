@@ -65,25 +65,7 @@ public class NPC_OldMan extends Entity {
     }
 
     public void speak() {
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex = (dialogueIndex + 1) % 4;
-
-        switch (gp.player.direction) {
-            case "up":
-                direction = "down";
-                break;
-            case "down":
-                direction = "up";
-                break;
-            case "left":
-                direction = "right";
-                break;
-            case "right":
-                direction = "left";
-                break;
-            default:
-                break;
-        }
+        super.speak();
     }
 
 }
