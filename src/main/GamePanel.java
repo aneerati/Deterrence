@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int DIALOGUE_STATE = 4;
 
     // SYSTEM CLASSES
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     TileManager tileM = new TileManager(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Sound music = new Sound();

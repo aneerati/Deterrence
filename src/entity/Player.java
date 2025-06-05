@@ -166,9 +166,12 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if (i != 999) {
-            gp.gameState = GamePanel.DIALOGUE_STATE;
-            gp.npc[i].speak();
+            if (gp.keyH.enteredPressed == true) {
+                gp.gameState = GamePanel.DIALOGUE_STATE;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enteredPressed = false;
     }
 
     // draw updates player sprite

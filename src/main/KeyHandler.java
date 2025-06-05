@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener {
     public boolean leftPressed;
     public boolean rightPressed;
     public boolean developerMode = false;
+    public boolean enteredPressed;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -81,6 +82,10 @@ public class KeyHandler implements KeyListener {
             // DEVELOPER MODE
             if (code == KeyEvent.VK_P) {
                 developerMode = !developerMode;
+            }
+
+            if (code == KeyEvent.VK_ENTER) {
+                enteredPressed = true;
             }
         }
 
