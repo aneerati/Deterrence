@@ -3,8 +3,11 @@ package main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 import object.OBJ_Key;
@@ -18,8 +21,10 @@ public class UI {
     public int commandNum = 0;
 
     // STATIC UI
-    Font arial_40;
-    Font arial_80B;
+    // Font arial_40;
+    // Font arial_80B;
+    Font maruMonica;
+    Font purisaB;
     BufferedImage keyImage;
 
     // PLAYTIME
@@ -37,8 +42,19 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        this.arial_40 = new Font("Arial", Font.PLAIN, 40);
-        this.arial_80B = new Font("Arial", Font.BOLD, 80);
+        // this.arial_40 = new Font("Arial", Font.PLAIN, 40);
+        // this.arial_80B = new Font("Arial", Font.BOLD, 80);
+
+        try {
+            InputStream is = getClass().getResourceAsStream("/fonts/x12y16pxMaruMonica.ttf");
+            maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+
+            is = getClass().getResourceAsStream("/fonts/PurisaBold.ttf");
+            purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException | IOException e) {
+
+            e.printStackTrace();
+        }
         keyImage = new OBJ_Key(gp).image;
     }
 
@@ -106,7 +122,7 @@ public class UI {
     }
 
     public void drawPlayState() {
-        g2.setFont(arial_40);
+        g2.setFont(maruMonica);
         g2.setColor(Color.WHITE);
         g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
         g2.drawString(": " + gp.player.hasKey, 74, 65);
@@ -162,7 +178,7 @@ public class UI {
         y = gp.screenHeight / 2 + (gp.tileSize * 4);
         g2.drawString(text, x, y);
 
-        g2.setFont(arial_80B);
+        g2.setFont(maruMonica);
         g2.setColor(Color.YELLOW);
 
         // Win message
@@ -209,7 +225,7 @@ public class UI {
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(arial_40);
+        g2.setFont(maruMonica);
         g2.setColor(Color.WHITE);
 
         switch (gp.gameState) {
