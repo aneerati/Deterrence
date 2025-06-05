@@ -137,7 +137,7 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    public void drawWinState() {
+    public void drawWinScreen() {
         gp.keyH.developerMode = false;
 
         String text;
@@ -172,6 +172,10 @@ public class UI {
         gp.gameThread = null;
     }
 
+    public void drawDialogueScreen() {
+
+    }
+
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         g2.setFont(arial_40);
@@ -188,7 +192,10 @@ public class UI {
                 drawPauseScreen();
                 break;
             case GamePanel.WIN_STATE:
-                drawWinState();
+                drawWinScreen();
+                break;
+            case GamePanel.DIALOGUE_STATE:
+                drawDialogueScreen();
                 break;
             default:
                 break;
