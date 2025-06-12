@@ -13,6 +13,7 @@ public class NPC_OldMan extends Entity {
         speed = 2;
 
         loadImages();
+        setDialogue();
     }
 
     // Load old man sprites on startup
@@ -29,6 +30,13 @@ public class NPC_OldMan extends Entity {
 
         right1 = setupEntity("/npc/oldman_right_1");
         right2 = setupEntity("/npc/oldman_right_2");
+    }
+
+    public void setDialogue() {
+        dialogues[0] = "Hello Sir";
+        dialogues[1] = "Some Important news overnight";
+        dialogues[2] = "Russia hates us";
+        dialogues[3] = "Good Day Sir";
     }
 
     public void setAction() {
@@ -54,6 +62,10 @@ public class NPC_OldMan extends Entity {
 
             actionLockCounter = 0;
         }
+    }
+
+    public void speak() {
+        super.speak();
     }
 
 }

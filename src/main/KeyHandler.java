@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener {
     public boolean leftPressed;
     public boolean rightPressed;
     public boolean developerMode = false;
+    public boolean enteredPressed;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -75,16 +76,29 @@ public class KeyHandler implements KeyListener {
 
             // PAUSE STATE
             if (code == KeyEvent.VK_ESCAPE) {
-                if (gp.gameState == GamePanel.PLAY_STATE) {
-                    gp.gameState = GamePanel.PAUSE_STATE;
-                } else if (gp.gameState == GamePanel.PAUSE_STATE) {
-                    gp.gameState = GamePanel.PLAY_STATE;
-                }
+                gp.gameState = GamePanel.PAUSE_STATE;
             }
 
             // DEVELOPER MODE
             if (code == KeyEvent.VK_P) {
                 developerMode = !developerMode;
+            }
+
+            if (code == KeyEvent.VK_ENTER) {
+                enteredPressed = true;
+            }
+        }
+
+        // PAUSE
+        else if (gp.gameState == GamePanel.PAUSE_STATE) {
+            if (code == KeyEvent.VK_ESCAPE) {
+                gp.gameState = GamePanel.PLAY_STATE;
+            }
+        }
+
+        else if (gp.gameState == GamePanel.DIALOGUE_STATE) {
+            if (code == KeyEvent.VK_ENTER) {
+                gp.gameState = GamePanel.PLAY_STATE;
             }
         }
     }

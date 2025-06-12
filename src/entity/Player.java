@@ -84,8 +84,10 @@ public class Player extends Entity {
             pickupObject(objIndex);
 
             // CHECK COLLISION WITH NPC
-            gp.cChecker.checkEntity(this, gp.npc);
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
+            // IF COLLISION FALSE, PLAYER CAN MOVE THROUGH
             if (collisionOn == false) {
                 switch (direction) {
                     case "up":
@@ -161,6 +163,16 @@ public class Player extends Entity {
                     break;
             }
         }
+    }
+
+    public void interactNPC(int i) {
+        if (i != 999) {
+            if (gp.keyH.enteredPressed == true) {
+                gp.gameState = GamePanel.DIALOGUE_STATE;
+                gp.npc[i].speak();
+            }
+        }
+        gp.keyH.enteredPressed = false;
     }
 
     // draw updates player sprite
