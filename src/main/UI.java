@@ -19,8 +19,9 @@ public class UI {
 
     // TITLE SCREEN
     public int commandNum = 0;
+    public int titleScreenState = 0;
 
-    // STATIC UI
+    // STATIC PLAY UI
     Font arial_40;
     Font arial_80B;
     Font maruMonica;
@@ -121,11 +122,83 @@ public class UI {
 
     }
 
+    public void drawCreateGameState() {
+        // commandNum = 0;
+        g2.setColor(Color.DARK_GRAY);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        g2.setFont(arial_40);
+        g2.setColor(Color.WHITE);
+
+        // Create Game Title
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 68F));
+        String text = "Choose Your Nation";
+        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth / 2 - textLength / 2;
+        int y = gp.tileSize * 3;
+
+        // TITLE SHADOW
+        g2.setColor(Color.BLACK);
+        g2.drawString(text, x + 5, y + 5);
+
+        // MAIN TITLE
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "North America";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 2;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "Russia";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "Asia";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "South America";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 3) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+        text = "Australia";
+        textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        x = gp.screenWidth / 2 - textLength / 2;
+        y += gp.tileSize * 1;
+        g2.drawString(text, x, y);
+        if (commandNum == 4) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+    }
+
     public void drawPlayState() {
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
         g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString(": " + gp.player.hasKey, 74, 65);
+        g2.drawString(": " + gp.player.nation.name, 74, 65);
 
         // PLAYTIME
         playTime += (double) 1 / 60;
@@ -231,6 +304,9 @@ public class UI {
         switch (gp.gameState) {
             case GamePanel.TITLE_STATE:
                 drawTitleState();
+                break;
+            case GamePanel.CREATE_GAME_STATE:
+                drawCreateGameState();
                 break;
             case GamePanel.PLAY_STATE:
                 drawPlayState();

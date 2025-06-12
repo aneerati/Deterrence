@@ -44,14 +44,62 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_ENTER) {
                 switch (gp.ui.commandNum) {
                     case 0:
+                        gp.gameState = GamePanel.CREATE_GAME_STATE;
+                        break;
+                    case 1:
+                        // TODO: LOAD GAME
+                        break;
+                    case 2:
+                        System.exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        else if (gp.gameState == GamePanel.CREATE_GAME_STATE) {
+            System.out.println(code);
+            if ((code == KeyEvent.VK_W) || (code == KeyEvent.VK_UP)) {
+                System.out.println("W");
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 4;
+                }
+                System.out.println(gp.ui.commandNum);
+            }
+            if ((code == KeyEvent.VK_S) || (code == KeyEvent.VK_DOWN)) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 4) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER) {
+                switch (gp.ui.commandNum) {
+                    case 0:
+                        gp.player.nation.name = "North America";
                         gp.gameState = GamePanel.PLAY_STATE;
                         gp.playMusic(0);
                         break;
                     case 1:
-                        // TODO
+                        gp.player.nation.name = "Russia";
+                        gp.gameState = GamePanel.PLAY_STATE;
+                        gp.playMusic(0);
                         break;
                     case 2:
-                        System.exit(0);
+                        gp.player.nation.name = "Asia";
+                        gp.gameState = GamePanel.PLAY_STATE;
+                        gp.playMusic(0);
+                        break;
+                    case 3:
+                        gp.player.nation.name = "South America";
+                        gp.gameState = GamePanel.PLAY_STATE;
+                        gp.playMusic(0);
+                        break;
+                    case 4:
+                        gp.player.nation.name = "Australia";
+                        gp.gameState = GamePanel.PLAY_STATE;
+                        gp.playMusic(0);
                         break;
                     default:
                         break;

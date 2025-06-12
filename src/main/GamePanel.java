@@ -42,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int PAUSE_STATE = 2;
     public static final int WIN_STATE = 3;
     public static final int DIALOGUE_STATE = 4;
+    public static final int CREATE_GAME_STATE = 5;
 
     // SYSTEM CLASSES
     public KeyHandler keyH = new KeyHandler(this);

@@ -15,6 +15,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    public Nation nation;
     public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -36,6 +37,9 @@ public class Player extends Entity {
 
         setDefaultValues();
         loadPlayerImages();
+
+        nation = new Nation(gp, "Italy");
+
     }
 
     public void setDefaultValues() {
