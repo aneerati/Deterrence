@@ -197,8 +197,9 @@ public class UI {
     public void drawPlayState() {
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
-        g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString(": " + gp.player.nation.name, 74, 65);
+        // g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize,
+        // gp.tileSize, null);
+        g2.drawString(gp.player.nation.name, gp.tileSize / 2, gp.tileSize * 1);
 
         // PLAYTIME
         playTime += (double) 1 / 60;
